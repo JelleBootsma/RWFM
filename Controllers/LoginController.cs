@@ -1,33 +1,45 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using RWFM.Models;
+using Newtonsoft.Json;
+using System.Text;
+using System.IO;
 
 namespace RWFM.Controllers
 {
-    [VerifyUser]
-    public class HomeController : Controller
+    public class LoginController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public LoginController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
+        [HttpPost]
+        public async void login(){
+            string json;
+            using (StreamReader reader 
+                  = new StreamReader(HttpContext.Request.Body, Encoding.UTF8, true, 1024, true))
+                {
+                    json = await reader.ReadToEndAsync();
+                }
+
+            LoginRequestModel loginRequest = JsonConvert.DeserializeObject<LoginRequestModel>(json);
+            HttpContext.Session.SetInt32("userID", 0);
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
