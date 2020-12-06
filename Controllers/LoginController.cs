@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using RWFM.Models;
 using RWFM.Repositories;
+using RWFM.Helpers;
 using Newtonsoft.Json;
 using System.Text;
 using System.IO;
@@ -17,7 +18,7 @@ namespace RWFM.Controllers
     public class LoginController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private UserRepository userRepository;
+        private readonly UserRepository userRepository = UserRepository.GetInstance();
         public LoginController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -29,7 +30,7 @@ namespace RWFM.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> login(){
+        public async Task<IActionResult> login(){
             string json;
             using (StreamReader reader 
                   = new StreamReader(HttpContext.Request.Body, Encoding.UTF8, true, 1024, true))
@@ -41,10 +42,17 @@ namespace RWFM.Controllers
             
 
             LoginRequestModel loginRequest = JsonConvert.DeserializeObject<LoginRequestModel>(json);
-            HttpContext.Session.SetInt32("userID", 0);
-            userRepository = UserRepository.GetInstance();
-            userRepository.GetUserByUsername(loginRequest.Username);
-            return true;
+            
+            var user = userRepository.GetUserByUsername(loginRequest.Username);
+            if (user != null && Authentication.CheckPassword(user.Hash, loginRequest.Password, user.Username))
+            {
+                HttpContext.Session.SetString("username", user.Username);
+                return new JsonResult(new { success = true });
+            }
+            var result = new JsonResult(new { success = false });
+            result.StatusCode = 403;
+            return result;
+            
         }
 
 
