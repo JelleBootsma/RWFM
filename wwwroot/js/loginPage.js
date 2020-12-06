@@ -19,5 +19,5 @@ function sendLoginRequest(username, password){
         method: 'post',
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data)
-    });
+    }).done(()=> {window.location.replace("/")});
 }

@@ -28,16 +28,20 @@ namespace RWFM.Controllers
         }
 
         [HttpPost]
-        public async void login(){
+        public async Task<bool> login(){
             string json;
             using (StreamReader reader 
                   = new StreamReader(HttpContext.Request.Body, Encoding.UTF8, true, 1024, true))
-                {
-                    json = await reader.ReadToEndAsync();
-                }
+            {
+                json = await reader.ReadToEndAsync();
+            }
+
+            
+            
 
             LoginRequestModel loginRequest = JsonConvert.DeserializeObject<LoginRequestModel>(json);
             HttpContext.Session.SetInt32("userID", 0);
+            return true;
         }
 
 
