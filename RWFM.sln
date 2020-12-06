@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RWFM", "RWFM.csproj", "{2A457E40-D2E3-4057-8ED4-24E3E63A1DE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A457E40-D2E3-4057-8ED4-24E3E63A1DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A457E40-D2E3-4057-8ED4-24E3E63A1DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A457E40-D2E3-4057-8ED4-24E3E63A1DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A457E40-D2E3-4057-8ED4-24E3E63A1DE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE9D1AB0-9698-43E1-8A47-4324F108057B}
+	EndGlobalSection
+EndGlobal

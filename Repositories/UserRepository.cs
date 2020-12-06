@@ -13,7 +13,7 @@ namespace RWFM.Repositories{
         private DataStore data;
         private IDocumentCollection<User> collection;
         private UserRepository(){
-            data = new DataStore("accounts.json");
+            data = new DataStore(AppDomain.CurrentDomain.BaseDirectory + "accounts.json");
         }
 
         public static UserRepository GetInstance(){
@@ -30,7 +30,7 @@ namespace RWFM.Repositories{
 
         public User GetUserByUsername(string username){
             collection = data.GetCollection<User>();
-            var user = collection.AsQueryable().First( e => e.Username == username);
+            var user = collection.AsQueryable().FirstOrDefault( e => e.Username == username);
             return user;
         }
 
